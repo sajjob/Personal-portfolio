@@ -1,0 +1,37 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{% static 'blog/blog.css' %}">
+    <title>Blogs</title>
+</head>
+<body>
+    <nav>
+        <div class="topnav" id="myTopnav">
+            <a href="{% url 'home' %}" >Home</a>
+            <a href="{% url 'blog:all_blogs' %}" class="active">Blogs</a>
+            <a href="#about">About</a>
+            <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+              <i class="fa fa-bars"></i>
+            </a>
+        </div>
+    </nav>
+    <p class="blogs-count">تعداد بلاگ های منتشر شده: {{blogs.count}}</p>
+    <section class="blogs">
+    {% for blog in blogs %}
+        <div class="blog">
+            <a href="{% url 'blog:detail' blog.id %}"><h3>{{blog.title}}</h3></a>
+            <h5>{{blog.date|date:'M d Y'}}</h5>
+            <p>{{blog.text|truncatechars:100}}</p>
+        </div>
+        
+    {% endfor %}
+    </section>
+    <script src="{% static 'blog/blog.js' %}"></script>
+</body>
+</html>
+
